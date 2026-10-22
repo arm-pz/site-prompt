@@ -1,12 +1,12 @@
 # Replay verifier cases
 
-Run on 2026-10-22 against `scripts/replay-prompt.mjs` (Node 24.18.0, Windows), including a re-run after the parser was made fence-aware. Fixtures in a temp folder; SELENE refers to the original one-shot prompt and the committed source at `landingpage/selene`.
+Run on 2026-10-22 against `scripts/replay-prompt.mjs` (Node 24.18.0, Windows), including a re-run after the parser was made fence-aware. Fixtures in a temp folder; SELENE refers to the original one-shot prompt and the committed source at `selene-3d-site/selene` (formerly `landingpage/selene`).
 
 | # | Case | Command shape | Expected | Observed |
 | --- | --- | --- | --- | --- |
 | 1 | List SELENE sections | `prompt --list` | 21 files | 21 files, 51,578 bytes, exit 0 |
 | 2 | Materialize SELENE | `prompt --out <fresh>` | 21 files written | 21 files, 51,578 bytes, exit 0 |
-| 3 | Check replay against the committed source | `prompt --check <landingpage/selene>` | every section matches | 21 match, 0 differ, 0 missing; 17 binary assets, 0 extra text; exit 0 |
+| 3 | Check replay against the committed source | `prompt --check <selene-3d-site/selene>` | every section matches | 21 match, 0 differ, 0 missing; 17 binary assets, 0 extra text; exit 0 |
 | 4 | Mutated source file | append one line to `src/content.ts`, then check | diff reported, exit 1 | `DIFF src/content.ts (line 69)`, exit 1 |
 | 5 | Missing files | two-section prompt checked against an empty dir | two missing, exit 1 | 2 missing, exit 1 |
 | 6 | Stray text file | add `notes.txt` to a two-file replay | extra reported, exit 1 | `EXTRA notes.txt (text file not in prompt)`, exit 1 |
